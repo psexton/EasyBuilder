@@ -10,11 +10,23 @@
  */
 package net.psexton.easybuilder;
 
+import com.rapplogic.xbee.api.ApiId;
+import com.rapplogic.xbee.api.PacketListener;
+import com.rapplogic.xbee.api.XBee;
+import com.rapplogic.xbee.api.XBeeException;
+import com.rapplogic.xbee.api.XBeeResponse;
+import com.rapplogic.xbee.api.wpan.IoSample;
+import com.rapplogic.xbee.api.wpan.RxResponseIoSample;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+
 /**
  *
  * @author PSexton
  */
 public class EasyBuilder extends javax.swing.JFrame {
+    private XBee xbee = new XBee();
 
     /** Creates new form EasyBuilder */
     public EasyBuilder() {
@@ -88,7 +100,37 @@ public class EasyBuilder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
+        // Connect to XBee
+        int portNumber = (Integer) comPortSpinner.getModel().getValue();
+        String portName = "COM" + String.valueOf(portNumber);
+        try {
+            xbee.open(portName, 9600);
+        } 
+        catch (XBeeException ex) {
+            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        console.append("Connected to " + portName + "\n"); 
         
+        // Add PacketListener
+        xbee.addPacketListener(new PacketListener() {
+            @Override
+            public void processResponse(XBeeResponse response) {
+                // handle the response
+                if (response.getApiId() == ApiId.RX_16_IO_RESPONSE || response.getApiId() == ApiId.RX_64_RESPONSE) {
+                    RxResponseIoSample ioSample = (RxResponseIoSample) response;
+
+                    console.append("\n");
+                    console.append("Received a sample from " + ioSample.getSourceAddress() + "\n");
+                    console.append("RSSI is " + ioSample.getRssi() + "\n");
+
+                    // loops IT times
+                    for (IoSample sample : ioSample.getSamples()) {
+                        console.append("Analog D0 (pin 20) 10-bit reading is " + sample.getAnalog0() + "\n");
+                        console.append("Digital D4 (pin 11) is " + (sample.isD4On() ? "on" : "off") + "\n");
+                    }
+                }
+            }
+        });
     }//GEN-LAST:event_connectButtonActionPerformed
 
     /**
@@ -97,7 +139,19 @@ public class EasyBuilder extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception e) {
+                    //  Exceptions setLookAndFeel may throw:
+                    //      UnsupportedLookAndFeelException
+                    //      ClassNotFoundException
+                    //      InstantiationException
+                    //      IllegalAccessException
+                    throw new RuntimeException("Setting system look and feel", e);
+                }
+                
                 new EasyBuilder().setVisible(true);
             }
         });
