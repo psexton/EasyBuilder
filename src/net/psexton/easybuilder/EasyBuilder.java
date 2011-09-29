@@ -13,10 +13,16 @@ package net.psexton.easybuilder;
 import com.rapplogic.xbee.api.ApiId;
 import com.rapplogic.xbee.api.PacketListener;
 import com.rapplogic.xbee.api.XBee;
+import com.rapplogic.xbee.api.XBeeAddress;
 import com.rapplogic.xbee.api.XBeeException;
 import com.rapplogic.xbee.api.XBeeResponse;
-import com.rapplogic.xbee.api.wpan.IoSample;
 import com.rapplogic.xbee.api.wpan.RxResponseIoSample;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -25,7 +31,7 @@ import javax.swing.UIManager;
  *
  * @author PSexton
  */
-public class EasyBuilder extends javax.swing.JFrame {
+public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
     private XBee xbee = new XBee();
 
     /** Creates new form EasyBuilder */
@@ -33,6 +39,45 @@ public class EasyBuilder extends javax.swing.JFrame {
         initComponents();
     }
 
+    @Override
+    public void processResponse(XBeeResponse response) {
+        // handle the response
+        if (response.getApiId() == ApiId.RX_16_IO_RESPONSE || response.getApiId() == ApiId.RX_64_RESPONSE) {
+            RxResponseIoSample ioSample = (RxResponseIoSample) response;
+            XBeeAddress sourceAddress = ioSample.getSourceAddress();
+
+            console.append("\n");
+            console.append("Received a sample from " + sourceAddress + "\n");
+            console.append("RSSI is " + ioSample.getRssi() + "\n");
+
+            if (sourceAddress.toString().equals("0x50,0x01")) {
+                sendHttpGetRequest(5001);
+            } else {
+                console.append("Unidentified button\n");
+            }
+        }
+    }
+    
+    private void sendHttpGetRequest(int buttonId) {
+        switch(buttonId) {
+            case 5001:
+                try {
+                    console.append("Identified button #5001\n");
+                    URL url = new URL("http://mc.speechbanana.com/tags/04B0A9D9A12580/check-in"); // Tom's RFID tag
+                    URLConnection connection = url.openConnection();
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    in.close();
+                } 
+                catch(MalformedURLException ex) {
+                    Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch(IOException ex) {
+                    Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+        }
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -111,25 +156,7 @@ public class EasyBuilder extends javax.swing.JFrame {
         console.append("Connected to " + portName + "\n"); 
         
         // Add PacketListener
-        xbee.addPacketListener(new PacketListener() {
-            @Override
-            public void processResponse(XBeeResponse response) {
-                // handle the response
-                if (response.getApiId() == ApiId.RX_16_IO_RESPONSE || response.getApiId() == ApiId.RX_64_RESPONSE) {
-                    RxResponseIoSample ioSample = (RxResponseIoSample) response;
-
-                    console.append("\n");
-                    console.append("Received a sample from " + ioSample.getSourceAddress() + "\n");
-                    console.append("RSSI is " + ioSample.getRssi() + "\n");
-
-                    // loops IT times
-                    for (IoSample sample : ioSample.getSamples()) {
-                        console.append("Analog D0 (pin 20) 10-bit reading is " + sample.getAnalog0() + "\n");
-                        console.append("Digital D4 (pin 11) is " + (sample.isD4On() ? "on" : "off") + "\n");
-                    }
-                }
-            }
-        });
+        xbee.addPacketListener(this);
     }//GEN-LAST:event_connectButtonActionPerformed
 
     /**
