@@ -28,10 +28,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" alignment="0" pref="380" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="comPortLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="portLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="comPortSpinner" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
+                      <Component id="portText" min="-2" pref="120" max="-2" attributes="0"/>
+                      <EmptySpace pref="94" max="32767" attributes="0"/>
                       <Component id="connectButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -44,9 +44,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="comPortLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comPortSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="portLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="connectButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="portText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="244" max="32767" attributes="0"/>
@@ -56,16 +56,14 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="comPortLabel">
+    <Component class="javax.swing.JLabel" name="portLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="COM Port:"/>
+        <Property name="text" type="java.lang.String" value="Serial Port Name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="comPortSpinner">
+    <Component class="javax.swing.JTextField" name="portText">
       <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="1" maximum="9" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
+        <Property name="text" type="java.lang.String" value="COM3"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="connectButton">

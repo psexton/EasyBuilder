@@ -42,8 +42,8 @@ public class EasyBuilder extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comPortLabel = new javax.swing.JLabel();
-        comPortSpinner = new javax.swing.JSpinner();
+        portLabel = new javax.swing.JLabel();
+        portText = new javax.swing.JTextField();
         connectButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         console = new javax.swing.JTextArea();
@@ -51,9 +51,9 @@ public class EasyBuilder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EasyBuilder");
 
-        comPortLabel.setText("COM Port:");
+        portLabel.setText("Serial Port Name:");
 
-        comPortSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9, 1));
+        portText.setText("COM3");
 
         connectButton.setText("Connect");
         connectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,10 +76,10 @@ public class EasyBuilder extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comPortLabel)
+                        .addComponent(portLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comPortSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                        .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addComponent(connectButton)))
                 .addContainerGap())
         );
@@ -88,9 +88,9 @@ public class EasyBuilder extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comPortLabel)
-                    .addComponent(comPortSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(connectButton))
+                    .addComponent(portLabel)
+                    .addComponent(connectButton)
+                    .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
@@ -101,8 +101,7 @@ public class EasyBuilder extends javax.swing.JFrame {
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         // Connect to XBee
-        int portNumber = (Integer) comPortSpinner.getModel().getValue();
-        String portName = "COM" + String.valueOf(portNumber);
+        String portName = portText.getText();
         try {
             xbee.open(portName, 9600);
         } 
@@ -157,10 +156,10 @@ public class EasyBuilder extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel comPortLabel;
-    private javax.swing.JSpinner comPortSpinner;
     private javax.swing.JButton connectButton;
     private javax.swing.JTextArea console;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel portLabel;
+    private javax.swing.JTextField portText;
     // End of variables declaration//GEN-END:variables
 }
