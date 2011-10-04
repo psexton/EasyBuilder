@@ -51,30 +51,25 @@ public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
             console.append("RSSI is " + ioSample.getRssi() + "\n");
 
             if (sourceAddress.toString().equals("0x50,0x01")) {
-                sendHttpGetRequest(5001);
+                console.append("Identified button #5001\n");
+                sendHttpGetRequest("http://mc.speechbanana.com/stream/04F9C751962280/broadcast"); // My RFID tag
             } else {
                 console.append("Unidentified button\n");
             }
         }
     }
     
-    private void sendHttpGetRequest(int buttonId) {
-        switch(buttonId) {
-            case 5001:
-                try {
-                    console.append("Identified button #5001\n");
-                    URL url = new URL("http://mc.speechbanana.com/tags/04B0A9D9A12580/check-in"); // Tom's RFID tag
-                    URLConnection connection = url.openConnection();
-                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    in.close();
-                } 
-                catch(MalformedURLException ex) {
-                    Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch(IOException ex) {
-                    Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
+    private void sendHttpGetRequest(String url) {
+        try {
+            URLConnection connection = new URL(url).openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            in.close();
+        } 
+        catch(MalformedURLException ex) {
+            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(IOException ex) {
+            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
