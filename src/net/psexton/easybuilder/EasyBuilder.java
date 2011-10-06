@@ -82,9 +82,24 @@ public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        configPanel = new javax.swing.JPanel();
         portLabel = new javax.swing.JLabel();
         portText = new javax.swing.JTextField();
+        buttonIdLabel = new javax.swing.JLabel();
+        urlLabel = new javax.swing.JLabel();
+        buttonId1 = new javax.swing.JSpinner();
+        buttonUrl1 = new javax.swing.JTextField();
+        buttonId2 = new javax.swing.JSpinner();
+        buttonUrl2 = new javax.swing.JTextField();
+        buttonId3 = new javax.swing.JSpinner();
+        buttonUrl3 = new javax.swing.JTextField();
+        buttonId4 = new javax.swing.JSpinner();
+        buttonUrl4 = new javax.swing.JTextField();
+        buttonId5 = new javax.swing.JSpinner();
+        buttonUrl5 = new javax.swing.JTextField();
         connectButton = new javax.swing.JButton();
+        consolePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         console = new javax.swing.JTextArea();
 
@@ -93,7 +108,23 @@ public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
 
         portLabel.setText("Serial Port Name:");
 
-        portText.setText("COM3");
+        portText.setText("/dev/ttyUSB0");
+
+        buttonIdLabel.setText("Button IDs:");
+
+        urlLabel.setText("URLs:");
+
+        buttonId1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(5001), null, null, Integer.valueOf(1)));
+
+        buttonUrl1.setText("http://mc.speechbanana.com/stream/04F9C751962280/broadcast");
+
+        buttonUrl2.setText("http://");
+
+        buttonUrl3.setText("http://");
+
+        buttonUrl4.setText("http://");
+
+        buttonUrl5.setText("http://");
 
         connectButton.setText("Connect");
         connectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -102,39 +133,112 @@ public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
             }
         });
 
+        javax.swing.GroupLayout configPanelLayout = new javax.swing.GroupLayout(configPanel);
+        configPanel.setLayout(configPanelLayout);
+        configPanelLayout.setHorizontalGroup(
+            configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(connectButton)
+                    .addGroup(configPanelLayout.createSequentialGroup()
+                        .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(buttonId5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonId4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonId3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonId2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonId1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(portLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonIdLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonUrl2, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                            .addComponent(urlLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonUrl1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                            .addComponent(portText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                            .addComponent(buttonUrl3, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                            .addComponent(buttonUrl4, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                            .addComponent(buttonUrl5, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        configPanelLayout.setVerticalGroup(
+            configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(portLabel)
+                    .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonIdLabel)
+                    .addComponent(urlLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonUrl1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonUrl2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonId3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonUrl3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonId4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonUrl4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonId5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonUrl5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(connectButton)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Configuration", configPanel);
+
         console.setColumns(20);
         console.setEditable(false);
         console.setRows(5);
         jScrollPane1.setViewportView(console);
 
+        javax.swing.GroupLayout consolePanelLayout = new javax.swing.GroupLayout(consolePanel);
+        consolePanel.setLayout(consolePanelLayout);
+        consolePanelLayout.setHorizontalGroup(
+            consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 422, Short.MAX_VALUE)
+            .addGroup(consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(consolePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        consolePanelLayout.setVerticalGroup(
+            consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(consolePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jTabbedPane1.addTab("Console", consolePanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(portLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                        .addComponent(connectButton)))
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(portLabel)
-                    .addComponent(connectButton)
-                    .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName("null");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,10 +282,25 @@ public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner buttonId1;
+    private javax.swing.JSpinner buttonId2;
+    private javax.swing.JSpinner buttonId3;
+    private javax.swing.JSpinner buttonId4;
+    private javax.swing.JSpinner buttonId5;
+    private javax.swing.JLabel buttonIdLabel;
+    private javax.swing.JTextField buttonUrl1;
+    private javax.swing.JTextField buttonUrl2;
+    private javax.swing.JTextField buttonUrl3;
+    private javax.swing.JTextField buttonUrl4;
+    private javax.swing.JTextField buttonUrl5;
+    private javax.swing.JPanel configPanel;
     private javax.swing.JButton connectButton;
     private javax.swing.JTextArea console;
+    private javax.swing.JPanel consolePanel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel portLabel;
     private javax.swing.JTextField portText;
+    private javax.swing.JLabel urlLabel;
     // End of variables declaration//GEN-END:variables
 }
