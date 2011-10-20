@@ -78,6 +78,11 @@ public class EasyBuilder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EasyBuilder");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         portLabel.setText("Serial Port Name:");
 
@@ -226,7 +231,29 @@ public class EasyBuilder extends javax.swing.JFrame {
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         updateActions();
         model.connect(portText.getText());
+        
+        // disable configuration and switch tabs
+        portLabel.setEnabled(false);
+        portText.setEnabled(false);
+        buttonIdLabel.setEnabled(false);
+        buttonId1.setEnabled(false);
+        buttonId2.setEnabled(false);
+        buttonId3.setEnabled(false);
+        buttonId4.setEnabled(false);
+        buttonId5.setEnabled(false);
+        urlLabel.setEnabled(false);
+        buttonUrl1.setEnabled(false);
+        buttonUrl2.setEnabled(false);
+        buttonUrl3.setEnabled(false);
+        buttonUrl4.setEnabled(false);
+        buttonUrl5.setEnabled(false);
+        connectButton.setEnabled(false);
+        jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_connectButtonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        model.disconnect();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
