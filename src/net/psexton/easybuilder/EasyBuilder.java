@@ -30,7 +30,18 @@ public class EasyBuilder extends javax.swing.JFrame {
         // Get the buttonId and url text for each of our 5 items,
         // put them into a Map, and update the Model's buttonActions
         HashMap<String, String> actions = new HashMap<String, String>();
-        actions.put(buttonId1.getText(), buttonUrl1.getText());
+        
+        // @FIX This is hacky, should really put these in an array and iterate over it
+        if(!buttonId1.getText().isEmpty())
+            actions.put(buttonId1.getText(), buttonUrl1.getText());
+        if(!buttonId2.getText().isEmpty())
+            actions.put(buttonId2.getText(), buttonUrl2.getText());
+        if(!buttonId3.getText().isEmpty())
+            actions.put(buttonId3.getText(), buttonUrl3.getText());
+        if(!buttonId4.getText().isEmpty())
+            actions.put(buttonId4.getText(), buttonUrl4.getText());
+        if(!buttonId5.getText().isEmpty())
+            actions.put(buttonId5.getText(), buttonUrl5.getText());
         
         model.setActions(actions);
     }
