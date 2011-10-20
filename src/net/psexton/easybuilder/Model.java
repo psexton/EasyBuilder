@@ -30,11 +30,13 @@ public class Model implements PacketListener {
     private HashMap<String, String> buttonActions;
     private XBee xbee;
     private JTextArea console;
+    private boolean connected;
     
     public Model(JTextArea console) {
         this.buttonActions = new HashMap<String, String>();
         this.xbee = new XBee();
         this.console = console;
+        this.connected = false;
     }
     
     public void connect(String portName) {
@@ -42,9 +44,8 @@ public class Model implements PacketListener {
             xbee.open(portName, 9600);
             
             console.append("Connected to " + portName + "\n"); 
-        
-            // Add PacketListener
             xbee.addPacketListener(this);
+            connected = true;
         } 
         catch (XBeeException ex) {
             console.append(ex.getLocalizedMessage());
@@ -54,6 +55,11 @@ public class Model implements PacketListener {
     public void disconnect() {
         xbee.removePacketListener(this);
         xbee.close();
+        connected = false;
+    }
+    
+    public boolean isConnected() {
+        return this.connected;
     }
     
     public void setActions(Map<String, String> buttonActions) {

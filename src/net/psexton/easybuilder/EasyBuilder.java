@@ -10,6 +10,12 @@
  */
 package net.psexton.easybuilder;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.swing.UIManager;
 
@@ -19,10 +25,12 @@ import javax.swing.UIManager;
  */
 public class EasyBuilder extends javax.swing.JFrame {
     private Model model;
+    private File dataFile = new File("easybuilder_data");
 
     /** Creates new form EasyBuilder */
     public EasyBuilder() {
         initComponents();
+        readSettingsFromFile();
         model = new Model(console);
     }
     
@@ -44,6 +52,82 @@ public class EasyBuilder extends javax.swing.JFrame {
             actions.put(buttonId5.getText(), buttonUrl5.getText());
         
         model.setActions(actions);
+    }
+    
+    /**
+     * Reads in the portname, button ids, and urls from a data file.
+     */
+    private void readSettingsFromFile() {
+        // If the file doesn't exist, (say it's the first time the app is run)
+        // then don't try to read it in. Use empty values instead.
+        if(dataFile.exists()) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+                portText.setText(reader.readLine());
+                buttonId1.setText(reader.readLine());
+                buttonUrl1.setText(reader.readLine());
+                buttonId2.setText(reader.readLine());
+                buttonUrl2.setText(reader.readLine());
+                buttonId3.setText(reader.readLine());
+                buttonUrl3.setText(reader.readLine());
+                buttonId4.setText(reader.readLine());
+                buttonUrl4.setText(reader.readLine());
+                buttonId5.setText(reader.readLine());
+                buttonUrl5.setText(reader.readLine());
+                reader.close();
+            }
+            catch(FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+            catch(IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        else {
+            portText.setText("");
+            buttonId1.setText("");
+            buttonUrl1.setText("http://");
+            buttonId2.setText("");
+            buttonUrl2.setText("http://");
+            buttonId3.setText("");
+            buttonUrl3.setText("http://");
+            buttonId4.setText("");
+            buttonUrl4.setText("http://");
+            buttonId5.setText("");
+            buttonUrl5.setText("http://");
+        }
+    }
+    
+    /**
+     * Writes out the portname, button ids, and urls to a data file.
+     */
+    private void writeSettingsToFile() {
+        try {
+            // overwrite the existing file
+            dataFile.delete();
+            dataFile.createNewFile();
+            PrintWriter writer = new PrintWriter(dataFile);
+            writer.println(portText.getText());
+            writer.println(buttonId1.getText());
+            writer.println(buttonUrl1.getText());
+            writer.println(buttonId2.getText());
+            writer.println(buttonUrl2.getText());
+            writer.println(buttonId3.getText());
+            writer.println(buttonUrl3.getText());
+            writer.println(buttonId4.getText());
+            writer.println(buttonUrl4.getText());
+            writer.println(buttonId5.getText());
+            writer.println(buttonUrl5.getText());
+            writer.flush();
+            writer.close();
+        } 
+        catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+        catch(IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        
     }
     
     /** This method is called from within the constructor to
@@ -79,8 +163,8 @@ public class EasyBuilder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EasyBuilder");
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -251,9 +335,11 @@ public class EasyBuilder extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_connectButtonActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        model.disconnect();
-    }//GEN-LAST:event_formWindowClosed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(model.isConnected())
+            model.disconnect();
+        writeSettingsToFile();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
