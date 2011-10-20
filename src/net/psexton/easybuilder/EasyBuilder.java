@@ -10,67 +10,19 @@
  */
 package net.psexton.easybuilder;
 
-import com.rapplogic.xbee.api.ApiId;
-import com.rapplogic.xbee.api.PacketListener;
-import com.rapplogic.xbee.api.XBee;
-import com.rapplogic.xbee.api.XBeeAddress;
-import com.rapplogic.xbee.api.XBeeException;
-import com.rapplogic.xbee.api.XBeeResponse;
-import com.rapplogic.xbee.api.wpan.RxResponseIoSample;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
  *
  * @author PSexton
  */
-public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
-    private XBee xbee = new XBee();
+public class EasyBuilder extends javax.swing.JFrame {
+    private Model model;
 
     /** Creates new form EasyBuilder */
     public EasyBuilder() {
         initComponents();
-    }
-
-    @Override
-    public void processResponse(XBeeResponse response) {
-        // handle the response
-        if (response.getApiId() == ApiId.RX_16_IO_RESPONSE || response.getApiId() == ApiId.RX_64_RESPONSE) {
-            RxResponseIoSample ioSample = (RxResponseIoSample) response;
-            XBeeAddress sourceAddress = ioSample.getSourceAddress();
-
-            console.append("\n");
-            console.append("Received a sample from " + sourceAddress + "\n");
-            console.append("RSSI is " + ioSample.getRssi() + "\n");
-
-            if (sourceAddress.toString().equals("0x50,0x01")) {
-                console.append("Identified button #5001\n");
-                sendHttpGetRequest("http://mc.speechbanana.com/stream/04F9C751962280/broadcast"); // My RFID tag
-            } else {
-                console.append("Unidentified button\n");
-            }
-        }
-    }
-    
-    private void sendHttpGetRequest(String url) {
-        try {
-            URLConnection connection = new URL(url).openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            in.close();
-        } 
-        catch(MalformedURLException ex) {
-            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch(IOException ex) {
-            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        model = new Model(console);
     }
     
     /** This method is called from within the constructor to
@@ -244,18 +196,7 @@ public class EasyBuilder extends javax.swing.JFrame implements PacketListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-        // Connect to XBee
-        String portName = portText.getText();
-        try {
-            xbee.open(portName, 9600);
-        } 
-        catch (XBeeException ex) {
-            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        console.append("Connected to " + portName + "\n"); 
-        
-        // Add PacketListener
-        xbee.addPacketListener(this);
+        model.connect(portText.getText());
     }//GEN-LAST:event_connectButtonActionPerformed
 
     /**
