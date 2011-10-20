@@ -25,6 +25,12 @@ public class EasyBuilder extends javax.swing.JFrame {
         model = new Model(console);
     }
     
+    private void updateActions() {
+        // Get the buttonId and url text for each of our 5 items,
+        // put them into a Map, and update the Model's buttonActions
+        
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -40,15 +46,15 @@ public class EasyBuilder extends javax.swing.JFrame {
         portText = new javax.swing.JTextField();
         buttonIdLabel = new javax.swing.JLabel();
         urlLabel = new javax.swing.JLabel();
-        buttonId1 = new javax.swing.JSpinner();
+        buttonId1 = new javax.swing.JTextField();
         buttonUrl1 = new javax.swing.JTextField();
-        buttonId2 = new javax.swing.JSpinner();
+        buttonId2 = new javax.swing.JTextField();
         buttonUrl2 = new javax.swing.JTextField();
-        buttonId3 = new javax.swing.JSpinner();
+        buttonId3 = new javax.swing.JTextField();
         buttonUrl3 = new javax.swing.JTextField();
-        buttonId4 = new javax.swing.JSpinner();
+        buttonId4 = new javax.swing.JTextField();
         buttonUrl4 = new javax.swing.JTextField();
-        buttonId5 = new javax.swing.JSpinner();
+        buttonId5 = new javax.swing.JTextField();
         buttonUrl5 = new javax.swing.JTextField();
         connectButton = new javax.swing.JButton();
         consolePanel = new javax.swing.JPanel();
@@ -66,7 +72,8 @@ public class EasyBuilder extends javax.swing.JFrame {
 
         urlLabel.setText("URLs:");
 
-        buttonId1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(5001), null, null, Integer.valueOf(1)));
+        buttonId1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        buttonId1.setText("5001");
 
         buttonUrl1.setText("http://mc.speechbanana.com/stream/04F9C751962280/broadcast");
 
@@ -94,14 +101,14 @@ public class EasyBuilder extends javax.swing.JFrame {
                 .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(connectButton)
                     .addGroup(configPanelLayout.createSequentialGroup()
-                        .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(buttonId5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonId4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonId3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonId2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonId1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(portLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonIdLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(buttonId5)
+                            .addComponent(buttonId4)
+                            .addComponent(buttonId3)
+                            .addComponent(buttonId2)
+                            .addComponent(buttonId1)
+                            .addComponent(portLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonIdLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(buttonUrl2, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
@@ -126,24 +133,24 @@ public class EasyBuilder extends javax.swing.JFrame {
                     .addComponent(urlLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonUrl1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonUrl1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonUrl2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonUrl2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonId3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonUrl3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonUrl3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonId3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonId4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonUrl4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonUrl4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonId4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonId5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonUrl5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonUrl5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonId5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(connectButton)
                 .addContainerGap())
@@ -190,8 +197,6 @@ public class EasyBuilder extends javax.swing.JFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("null");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -223,11 +228,11 @@ public class EasyBuilder extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSpinner buttonId1;
-    private javax.swing.JSpinner buttonId2;
-    private javax.swing.JSpinner buttonId3;
-    private javax.swing.JSpinner buttonId4;
-    private javax.swing.JSpinner buttonId5;
+    private javax.swing.JTextField buttonId1;
+    private javax.swing.JTextField buttonId2;
+    private javax.swing.JTextField buttonId3;
+    private javax.swing.JTextField buttonId4;
+    private javax.swing.JTextField buttonId5;
     private javax.swing.JLabel buttonIdLabel;
     private javax.swing.JTextField buttonUrl1;
     private javax.swing.JTextField buttonUrl2;
