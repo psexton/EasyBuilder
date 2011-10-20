@@ -20,8 +20,6 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -59,17 +57,10 @@ public class Model implements PacketListener {
     }
     
     public void setActions(Map<String, String> buttonActions) {
-        // Convert the keys to the format used by the XBeeAddress class
-        // hex value of "CAFE" is encoded as "0xCA,0xFE"
         this.buttonActions.clear();
         for(Entry<String, String> entry : buttonActions.entrySet()) {
             String buttonId = entry.getKey();
             String url = entry.getValue();
-            
-            String buttonIdByte1 = buttonId.substring(0, 2);
-            String buttonIdByte2 = buttonId.substring(2, 4);
-            buttonId = "0x" + buttonIdByte1 + ",0x" + buttonIdByte2;
-            
             this.buttonActions.put(buttonId, url);
         }
     }
@@ -89,31 +80,38 @@ public class Model implements PacketListener {
             console.append("\n");
             console.append("Received a sample from " + sourceAddress + "\n");
             console.append("RSSI is " + ioSample.getRssi() + "\n");
-
+            
+            // Need to convert the address from the format used by the XBeeAddress class
+            // Hex value of "CAFE" is encoded as "0xCA,0xFE"
             String sourceAddressString = sourceAddress.toString();
-            if(buttonActions.containsKey(sourceAddressString)) {
-                String url = buttonActions.get(sourceAddressString);
-                console.append("Sending request to " + url + "\n");
+            String buttonIdByte1 = sourceAddressString.substring(2, 4);
+            String buttonIdByte2 = sourceAddressString.substring(7, 9);
+            String buttonId = buttonIdByte1 + buttonIdByte2;
+            
+            if(buttonActions.containsKey(buttonId)) {
+                String url = buttonActions.get(buttonId);
+                console.append("Identified button " + buttonId + ", sending request to " + url + "\n");
                 sendHttpGetRequest(url);
             }
             else {
-                console.append("Unknown button\n");
+                console.append("Unidentified button " + buttonId + "\n");
             }
         }
     }
     
     private void sendHttpGetRequest(String url) {
         try {
+            // We don't actually care about the response, so we don't do anything with the BufferedReader.
+            // But it's needed so that Java will actually make the HTTP request.
             URLConnection connection = new URL(url).openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             in.close();
         } 
         catch(MalformedURLException ex) {
-            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            console.append(ex.getLocalizedMessage());
         }
         catch(IOException ex) {
-            Logger.getLogger(EasyBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            console.append(ex.getLocalizedMessage());
         }
     }
-    
 }
