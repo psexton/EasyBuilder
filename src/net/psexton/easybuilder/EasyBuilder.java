@@ -92,11 +92,19 @@ public class EasyBuilder extends javax.swing.JFrame {
 
         buttonUrl1.setText("http://mc.speechbanana.com/stream/04F9C751962280/broadcast");
 
+        buttonId2.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+
         buttonUrl2.setText("http://");
+
+        buttonId3.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
         buttonUrl3.setText("http://");
 
+        buttonId4.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+
         buttonUrl4.setText("http://");
+
+        buttonId5.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
         buttonUrl5.setText("http://");
 

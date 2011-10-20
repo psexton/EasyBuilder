@@ -157,6 +157,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonId2">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonUrl2">
               <Properties>
@@ -164,6 +167,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonId3">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonUrl3">
               <Properties>
@@ -171,6 +177,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonId4">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonUrl4">
               <Properties>
@@ -178,6 +187,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonId5">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="buttonUrl5">
               <Properties>
