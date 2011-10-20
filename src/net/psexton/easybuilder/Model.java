@@ -17,7 +17,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -27,12 +29,12 @@ import javax.swing.JTextArea;
  * @author PSexton
  */
 public class Model implements PacketListener {
-    private Map<String, String> buttonActions;
+    private HashMap<String, String> buttonActions;
     private XBee xbee;
     private JTextArea console;
     
     public Model(JTextArea console) {
-        this.buttonActions = null;
+        this.buttonActions = new HashMap<String, String>();
         this.xbee = new XBee();
         this.console = console;
     }
@@ -52,15 +54,29 @@ public class Model implements PacketListener {
     }
     
     public void disconnect() {
-        
+        xbee.removePacketListener(this);
+        xbee.close();
     }
     
     public void setActions(Map<String, String> buttonActions) {
-        
+        // Convert the keys to the format used by the XBeeAddress class
+        // hex value of "CAFE" is encoded as "0xCA,0xFE"
+        this.buttonActions.clear();
+        for(Entry<String, String> entry : buttonActions.entrySet()) {
+            String buttonId = entry.getKey();
+            String url = entry.getValue();
+            
+            String buttonIdByte1 = buttonId.substring(0, 2);
+            String buttonIdByte2 = buttonId.substring(2, 4);
+            buttonId = "0x" + buttonIdByte1 + ",0x" + buttonIdByte2;
+            
+            this.buttonActions.put(buttonId, url);
+        }
     }
     
     public Map<String, String> getActions() {
-        return buttonActions;
+        // Make defensive copy
+        return new HashMap<String, String>(buttonActions);
     }
 
     @Override
@@ -74,11 +90,14 @@ public class Model implements PacketListener {
             console.append("Received a sample from " + sourceAddress + "\n");
             console.append("RSSI is " + ioSample.getRssi() + "\n");
 
-            if (sourceAddress.toString().equals("0x50,0x01")) {
-                console.append("Identified button #5001\n");
-                sendHttpGetRequest("http://mc.speechbanana.com/stream/04F9C751962280/broadcast"); // My RFID tag
-            } else {
-                console.append("Unidentified button\n");
+            String sourceAddressString = sourceAddress.toString();
+            if(buttonActions.containsKey(sourceAddressString)) {
+                String url = buttonActions.get(sourceAddressString);
+                console.append("Sending request to " + url + "\n");
+                sendHttpGetRequest(url);
+            }
+            else {
+                console.append("Unknown button\n");
             }
         }
     }

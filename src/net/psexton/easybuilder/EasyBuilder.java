@@ -10,6 +10,7 @@
  */
 package net.psexton.easybuilder;
 
+import java.util.HashMap;
 import javax.swing.UIManager;
 
 /**
@@ -28,7 +29,10 @@ public class EasyBuilder extends javax.swing.JFrame {
     private void updateActions() {
         // Get the buttonId and url text for each of our 5 items,
         // put them into a Map, and update the Model's buttonActions
+        HashMap<String, String> actions = new HashMap<String, String>();
+        actions.put(buttonId1.getText(), buttonUrl1.getText());
         
+        model.setActions(actions);
     }
     
     /** This method is called from within the constructor to
@@ -201,6 +205,7 @@ public class EasyBuilder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
+        updateActions();
         model.connect(portText.getText());
     }//GEN-LAST:event_connectButtonActionPerformed
 
