@@ -11,4 +11,4 @@ Usage
 -----
 
 1. You'll need to use Ant or NetBeans to build the project.
-2. You'll need to move the RXTX binary library to the dist folder. Binaries for your platform can be found in lib/rxtx_bin.
+2. RXTX has binary that needed to be added to Java's library path. These can be found in lib/rxtx_bin. Modify the nbproject/project.properties file to point to the absolute path for that directory.
